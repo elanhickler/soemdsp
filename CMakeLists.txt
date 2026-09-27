@@ -55,12 +55,12 @@ file(GLOB_RECURSE LIBS_HEADERS
     "${CMAKE_CURRENT_LIST_DIR}/libs/*.hpp"
 )
 
-# All source files (.cpp) → go into one big flat "src" folder
+# Library .cpp under include/ and libs/ only.
+# src/Main.cpp belongs to the soemdspexe target (see src/CMakeLists.txt).
 file(GLOB_RECURSE ALL_SOURCE_FILES
     CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_LIST_DIR}/include/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/libs/*.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
 )
 
 target_sources(soemdsp PRIVATE
@@ -102,3 +102,6 @@ target_compile_features(soemdsp PUBLIC cxx_std_20)
 set_property(TARGET soemdsp PROPERTY FOLDER "Libs")
 
 add_subdirectory(src)
+
+# Useful default when opening the generated .sln in Visual Studio
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT soemdspexe)
