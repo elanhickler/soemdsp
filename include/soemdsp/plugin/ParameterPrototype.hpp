@@ -30,6 +30,9 @@
  * types from boolean to string based parameters to all sorts of curves to ones specifically for envelope timimg, amplitde, volume, to basic and simple
  */
 namespace soemdsp::plugin::parameterprototype {
+using std::string;
+using std::string_view;
+using std::unordered_map;
 
 struct ParameterPrototype {
     ParameterPrototype()          = default;
