@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cstdint>
 #include <functional>
 #include <iterator>
 #include <map>
@@ -61,7 +62,7 @@ struct SoEmVstEvents {
     //-------------------------------------------------------------------------------------------------------
 
     int numEvents{};                     ///< number of Events in array
-    __int64* reserved{};                 ///< zero (Reserved for future use)
+    std::int64_t* reserved{};            ///< zero (Reserved for future use)
     SoEmVstEvent events[2] = { {}, {} }; ///< event pointer array, variable size
     //-------------------------------------------------------------------------------------------------------
 };
