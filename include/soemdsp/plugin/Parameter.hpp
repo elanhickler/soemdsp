@@ -8,7 +8,7 @@
 
 #include <soemdsp/utility/operations_string.hpp>
 
-#include "parameterprototype.hpp"
+#include "ParameterPrototype.hpp"
 
 namespace soemdsp::plugin {
 
@@ -32,7 +32,10 @@ class Parameter {
     float get() const { return static_cast<float>(getDspDouble()); }
     double getLinear() const { return model_->getLinear(); }
     double& getLinearRef() { return model_->getLinearRef(); }
+    // Linear 0..1 (modulation / normalized).
     void set(double v) { model_->updateValueFromLinear(v); }
+    // Real DSP / host number (Mix 0.43, Size 0.35, …).
+    void setMapped(double v) { model_->updateValueFromMapped(v); }
 
     std::string display() const { return model_->displayString(); }
     std::string getPatchValueString() const { return model_->getPatchValueString(); }
@@ -47,6 +50,7 @@ class Parameter {
         virtual double getLinear() const                      = 0;
         virtual double& getLinearRef()                        = 0;
         virtual void updateValueFromLinear(double v)          = 0;
+        virtual void updateValueFromMapped(double v)          = 0;
         virtual std::string displayString() const             = 0;
         virtual std::string getPatchValueString() const       = 0;
         virtual void updateValueFromXml(const std::string& s) = 0;
@@ -67,7 +71,8 @@ class Parameter {
         double getLinear() const override { return impl.getLinear(); }
         double& getLinearRef() override { return impl.getLinearRef(); }
         void updateValueFromLinear(double v) override { impl.updateValueFromLinear(v); }
-        std::string displayString() const override { return impl.displayString(); }
+        void updateValueFromMapped(double v) override { impl.updateValueFromMapped(v); }
+        std::string displayString() const override { return impl.displayString(impl.getLinear()); }
         std::string getPatchValueString() const override { return impl.getPatchValueString(); }
         void updateValueFromXml(const std::string& s) override { impl.updateValueFromXml(s); }
     };
