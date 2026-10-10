@@ -4,10 +4,13 @@
 #include <cstdint>
 #include <map>
 #include <memory>
-#include <soemdsp.hpp>
 #include <string>
 #include <string_view>
 #include <unordered_map>
+
+#include <soemdsp/SampleRate.hpp>
+#include <soemdsp/sehelper.hpp>
+#include <soemdsp/semath.hpp>
 
 #include <fmt/format.h>
 
